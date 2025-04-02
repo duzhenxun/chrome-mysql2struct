@@ -50,6 +50,11 @@ document.addEventListener('DOMContentLoaded', function() {
       tabBtns.forEach(b => b.classList.remove('active'));
       this.classList.add('active');
       currentMode = this.dataset.tab;
+      
+      // 处理URL参数管理标签点击
+      if (currentMode === 'url-params') {
+        window.open('https://github.com/duzhenxun/chrome-url-params', '_blank');
+      }
     });
   });
   
