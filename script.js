@@ -1,4 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // 检查版本更新
+  chrome.runtime.sendMessage({ type: 'checkUpdate' }, function(response) {
+    if (response && response.hasUpdate) {
+      showUpdateDialog(response.currentVersion, response.latestVersion, response.releaseNotes);
+    }
+  });
+
+  // 显示更新对话框
+  function showUpdateDialog(currentVersion, latestVersion, releaseNotes) {
+    const updateDialog = document.getElementById('update-dialog');
+    document.getElementById('current-version').textContent = currentVersion;
+    document.getElementById('latest-version').textContent = latestVersion;
+    
+    // 格式化并显示更新内容
+    const releaseNotesElement = document.getElementById('release-notes');
+    releaseNotesElement.innerHTML = `<h4>更新内容：</h4><pre style="margin: 10px 0; white-space: pre-wrap;">${releaseNotes}</pre>`;
+    
+    updateDialog.style.display = 'flex';
+    
+    // 绑定按钮事件
+    document.getElementById('update-now').onclick = function() {
+      chrome.runtime.sendMessage({ type: 'openUpdatePage' });
+      updateDialog.style.display = 'none';
+    };
+    
+    document.getElementById('update-later').onclick = function() {
+      updateDialog.style.display = 'none';
+    };
+  }
+
   // 获取DOM元素
   const inputText = document.getElementById('input-text');
   const outputText = document.getElementById('output-text');
@@ -349,4 +379,4 @@ document.addEventListener('DOMContentLoaded', function() {
       .toLowerCase()
       .replace(/^_/, '');
   }
-}); 
+});
