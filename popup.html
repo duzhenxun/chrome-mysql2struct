@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MySQL/JSON 转 Golang 结构体</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>MySQL/JSON转Golang结构体</h2>
+    
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="auto">自动检测</button>
+      <button class="tab-btn" data-tab="json">JSON</button>
+      <button class="tab-btn" data-tab="mysql">MySQL</button>
+    </div>
+
+    <div class="input-container">
+      <textarea id="input-text" placeholder="粘贴JSON或MySQL表结构..."></textarea>
+    </div>
+
+    <div class="options">
+      <div class="option">
+        <label for="struct-name">结构体名称:</label>
+        <input type="text" id="struct-name" placeholder="例如: User">
+      </div>
+      
+      <div class="option">
+        <label for="tag-type">标签类型:</label>
+        <select id="tag-type">
+          <option value="json">json</option>
+          <option value="json,gorm" selected>json,gorm</option>
+          <option value="json,db">json,db</option>
+        </select>
+      </div>
+
+      <div class="option">
+        <label for="json-style">JSON字段命名样式:</label>
+        <select id="json-style">
+          <option value="original" selected>原始风格 (与数据库一致)</option>
+          <option value="camel">驼峰命名 (firstName)</option>
+          <option value="pascal">帕斯卡命名 (FirstName)</option>
+          <option value="snake">蛇形命名 (first_name)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button id="convert-btn">转换</button>
+      <button id="copy-btn">复制结果</button>
+    </div>
+
+    <div class="output-container">
+      <pre id="output-text"></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html> 

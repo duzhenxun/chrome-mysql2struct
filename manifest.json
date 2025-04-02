@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "MySQL/JSON To Golang Struct,json to go,mysql to go",
+  "version": "1.0",
+  "author": "zhenxundu",
+  "description": "一个可以将MySQL表结构或JSON转换为Golang结构体的工具,json to go,mysql to go,json to golang,mysql to golang",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    }
+  },
+  "permissions": ["clipboardWrite"],
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  }
+} 
