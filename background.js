@@ -13,15 +13,6 @@ async function checkForUpdates() {
     const currentVersion = chrome.runtime.getManifest().version;
 
     if (latestVersion > currentVersion) {
-      // 创建通知
-      chrome.notifications.create('update-notification', {
-        type: 'basic',
-        iconUrl: 'images/icon128.png',
-        title: '有新版本可用',
-        message: `新版本 ${latestVersion} 已发布，点击此处更新`,
-        priority: 2
-      });
-
       // 更新扩展图标
       chrome.action.setBadgeText({ text: '↑'});
       chrome.action.setBadgeTextColor({ color: '#000000' });
@@ -42,14 +33,6 @@ async function checkForUpdates() {
   }
 }
 
-// 监听通知点击事件
-chrome.notifications.onClicked.addListener((notificationId) => {
-  if (notificationId === 'update-notification') {
-    chrome.tabs.create({ url: UPDATE_URL });
-    chrome.notifications.clear(notificationId);
-  }
-});
-
 // 监听来自popup页面的消息
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'checkUpdate') {
@@ -57,19 +40,5 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true; // 保持消息通道开启以支持异步响应
   } else if (request.type === 'openUpdatePage') {
     chrome.tabs.create({ url: UPDATE_URL });
-  }
-});
-
-// 启动时检查更新
-checkForUpdates();
-
-// 每天检查一次更新
-chrome.alarms.create('checkForUpdates', {
-  periodInMinutes: 1440 // 24小时
-});
-
-chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === 'checkForUpdates') {
-    checkForUpdates();
   }
 });
